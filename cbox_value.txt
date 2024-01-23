@@ -1,0 +1,11 @@
+Nákup pohonných hmôt Nafta
+Nákup pohonných hmôt Benzín
+Doprava Dodávka
+Doprava MAN
+Doprava VOLVO
+Vklad do pokladne
+Výber z pokladne
+Uzávierka pokladne
+Záloha na drevo
+Nákup dreva
+nove
