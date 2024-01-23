@@ -22,6 +22,7 @@ row_id = int()
 selected_rows = list()
 
 
+# čítanie suboru a uloženie do stringu v prípade zlihania spustí vytvorenie suboru v mudule startup_database_con.py
 def conn_read_from_file():
     global connect_string
     try:
@@ -31,6 +32,8 @@ def conn_read_from_file():
         sdc.start()
         conn_read_from_file()
 
+
+# vytvorý spojenie a cursor nad databazou
 def connect_open():
     global conn, cursor
     try:
@@ -41,17 +44,21 @@ def connect_open():
         sdc.start()
         connect_open()
 
+
+# zatvorý spojenie s databazou
 def connect_close():
     conn.close()
     cursor.close()
 
 
+# označanie riadkov v databaze a vloženie da stringu
 def select():
     global selected_rows
     cursor.execute(select_string)
     selected_rows = cursor.fetchall()
 
 
+# pridanie riadku do databazy
 def add_row(description, value):
     global row_id
     if description == str(""):
@@ -72,6 +79,7 @@ def add_row(description, value):
         return row_id, value, description
 
 
+# oprava riadku v databaze
 def update(description, value, row_id):
     connect_open()
     if description == str(""):
@@ -87,6 +95,7 @@ def update(description, value, row_id):
     connect_close()
 
 
+# vymazanie riadku z databazy
 def delete(row_id):
     connect_open()
     cursor.execute(delete_string, (row_id,))

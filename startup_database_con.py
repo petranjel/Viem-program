@@ -1,4 +1,8 @@
-# Vytvorenie dokumentu s informaciami na pripojenie k databaze
+# Vytvorenie dokumentu s prístupovými udajmi na pripojenie k databaze
+# Prípadne chybné zadanie a nasledne zhyhanie pripojenia sa rieši v func.py kde sa vyvola tento modul znova a da tak možnosť vyplniť pristupove udaje znovu
+# Toto je veľmi jednoduchá verzia
+# Tento modul vytvorá textový súbor dbconnect.txt z ktorého nasledne bude čítať modul func.py informacie pre pripojenie do databazy
+# Očakava sa že pripojena databaza bude mať 4 stlpce v tomto poradí: popis (je text), hodnota (je cena/decimal kladna alebo záporná), datum (datum bez času), id (automaticky pridaďovane)
 
 import tkinter as tk
 
@@ -9,14 +13,14 @@ insert_dbname = "database name"
 insert_user = "user name"
 insert_password = "password"
 
-file_new="dbconnect.txt"
+file_new = "dbconnect.txt"
+
 
 def start():
     startup_frame = tk.Tk()
     startup_frame.geometry("300x150")
     startup_frame.config(background=main_color)
     startup_frame.title("Set database")
-
 
     def create_doc():
         new_host = "'" + host_entry.get() + "'"
@@ -38,7 +42,7 @@ def start():
         )
         with open(file_new, "w", encoding="utf-8") as file:
             file.write(connection_string)
-        
+
         startup_frame.destroy()
 
     host_entry = tk.Entry()
@@ -65,4 +69,3 @@ def start():
     create_doc_button.pack()
 
     startup_frame.wait_window()
-

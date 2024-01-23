@@ -1,3 +1,5 @@
+# V tomto module sa rieši hlavne uživateľske prostretie ktoré je riešene pomocou knižnice tkinter
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -20,6 +22,7 @@ def on_closing():
         frame_main.destroy()
 
 
+# Vytvorenie pracovneho okna
 def frame_up():
     global frame_main, frame_one, frame_two, frame_three
     frame_main = tk.Tk()
@@ -36,6 +39,7 @@ def frame_up():
     frame_three.pack()
 
 
+# vytvorenie tabulky
 def make_tree():
     global tree
     tree = ttk.Treeview(
@@ -66,6 +70,7 @@ def make_tree():
     tree.configure(yscrollcommand=scroll_tree.set)
 
 
+# vytvorenie niekoľkých tlačitiel  s rôznymi funkciamy
 def button_add_create():
     global button_add
     button_add = tk.Button(
@@ -105,6 +110,7 @@ def button_delete_create():
     button_delete.grid(column=2, row=0, padx=5, pady=5, ipadx=3)
 
 
+# tlačidlo zatial bez funkcie
 def button_time_create():
     global button_time
     button_time = tk.Button(
@@ -117,6 +123,7 @@ def button_time_create():
     button_time.grid(column=3, row=0, padx=5, pady=5, ipadx=3)
 
 
+# tlačidlo zatial bez funkcie
 def button_filter_as_create():
     global button_filter_as
     button_filter_as = tk.Button(
@@ -129,6 +136,7 @@ def button_filter_as_create():
     button_filter_as.grid(column=5, row=0, padx=5, pady=5, ipadx=3)
 
 
+# tlačidlo zatial bez funkcie
 def button_coin_create():
     global button_coin
     button_coin = tk.Button(
@@ -141,6 +149,7 @@ def button_coin_create():
     button_coin.grid(column=6, row=0, padx=5, pady=5, ipadx=3)
 
 
+# zobrazene texty v uživateľskom prostredí
 def label_today_create():
     global label_today
     label_today = tk.Label(
@@ -168,6 +177,7 @@ def sum_label_create():
     sum_label.grid(row=1, column=0, ipadx=20)
 
 
+# tlačidlo pre supustenie časti modulu quick_choice.py ktorý prida rýchlu voľbu
 def button_add_c_box_value_create():
     global button_add_c_box_value
     button_add_c_box_value = tk.Button(
@@ -186,6 +196,7 @@ def add_cbox_seq():
     c_box["values"] = quick.fast_offer_without
 
 
+# tlačidlo pre supustenie časti modulu quick_choice.py ktorým opravý alebo vymaže rýchlu voľbu
 def button_repdel_c_box_value_create():
     global button_repdel_c_box_value
     button_repdel_c_box_value = tk.Button(
@@ -204,12 +215,14 @@ def update_or_delete_cbox_value():
     c_box["values"] = quick.fast_offer_without
 
 
+# vstup pre zadanie hodnoty/sumy
 def field_value_create():
     global field_value
     field_value = tk.Entry(frame_two, width=15)
     field_value.grid(column=3, row=2, sticky="n")
 
 
+# tlačidlo pre pridanie noveho riadku do tabulky
 def button_ready_create():
     global button_ready
     button_ready = tk.Button(
@@ -218,12 +231,14 @@ def button_ready_create():
     button_ready.grid(column=4, row=2, sticky="n")
 
 
+# vstup pre zadanie popisu s rýchlou voľbou
 def c_box_create():
     global c_box
     c_box = ttk.Combobox(frame_two, width=40)
     c_box.grid(column=1, row=2, sticky="n")
 
 
+# tlačidlo zrušiť/navrat
 def button_cancel_create():
     global button_cancel
     button_cancel = tk.Button(
@@ -232,6 +247,7 @@ def button_cancel_create():
     button_cancel.grid(column=5, row=2, sticky="n")
 
 
+# tlaťidlo bez funkcie 
 def asfd_button_create():
     global asfd_button
     asfd_button = tk.Button(

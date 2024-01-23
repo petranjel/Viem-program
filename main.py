@@ -17,18 +17,16 @@ quick.fast_offer_without  # spojene s listom zoznamu bez \n
 import gui
 import tkinter as tk
 
-# Premenne z gui.py
 
-
-fu.connect_open()
-fu.select()
-gui.frame_up()
-gui.start_pro()
-gui.make_tree()
-for row in fu.selected_rows:
+fu.connect_open()       # vytvorenie spojenia s databazou
+fu.select()             # pripojenie dat z databazy do stringu
+gui.frame_up()          # vytoverenie pracovneho okna
+gui.start_pro()         # vytvorenie tlačidiel a dalšie pomocne časti
+gui.make_tree()         # vytvorenie tabulky
+for row in fu.selected_rows:  # pripojenie dat z databazy
     state_value = "positive" if row[1] >= 0 else "negative"
     gui.tree.insert("", tk.END, values=row, tags=state_value)
-fu.connect_close()
+fu.connect_close()      # zatvorenie spojenia s databazou
 
 
 gui.frame_main.mainloop()

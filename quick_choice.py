@@ -1,3 +1,5 @@
+# tento modul rieši komunikaciu s text. dokumentom cbox_value.txt v ktorom sa ukladaju rýchle volby pre cbox v mudule gui.py
+
 c_value = str()
 fast_offer = []
 fast_offer_without = []
@@ -181,7 +183,6 @@ def add_c_box_value():
                 print("Táto hodnota už existuje")
             frame_c_box_config.destroy()
             save_cbox_values()
-            
 
     show_fs = tk.Listbox(frame_c_box_config, width=30, background="#779eff")
     show_fs.grid(column=0, row=1)
