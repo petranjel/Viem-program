@@ -1,0 +1,36 @@
+Algoritmické myslenie je schopnosť myslieť a riešiť problémy spôsobom, ktorý je podobný spôsobu, akým by počítač spracovával úlohy. 
+Je to schopnosť rozdeliť problém na menšie kúsky a vytvoriť postupnosť krokov, ktoré vedú k riešeniu.
+Identifikácia problému: Prvý krok je pochopenie problému, ktorý sa snažíme vyriešiť. Je dôležité presne definovať cieľ a obmedzenia problému.
+Rozdelenie problému: Rozdeľujeme veľký problém na menšie, jednoduchšie časti. Týmto spôsobom môžeme získať lepší prehľad a ľahšie riešiť každú časť nezávisle.
+Navrhovanie algoritmu: Vytvárame postupnosť krokov alebo postup, ktorý by mal viesť k riešeniu. Tieto kroky by mali byť jasné, presné a vykonateľné.
+Testovanie a opravy: Skúšame náš algoritmus s rôznymi vstupmi, aby sme zistili, či správne funguje. Ak nie, prispôsobujeme a opravujeme našu stratégiu.
+Optimalizácia: Môžeme sa snažiť náš algoritmus vylepšiť, aby bol efektívnejší alebo rýchlejší. To je proces neustáleho zlepšovania.
+
+Pri učení programovania je algoritmické myslenie dôležité, pretože umožňuje študentom efektívnejšie riešiť problémy a efektívnejšie písať kód. 
+To tiež pomáha pri prechádzaní od abstraktného problému k konkrétnemu riešeniu pomocou programovacích jazykov.
+
+Problém:    Vytvorenie programu pre zapis a analýzu prímov a výdavkov 
+
+Rozdelenie na menšie úlohy (Divide and Conquer): 
+
+program ->  zápis   ->  oprava položky
+                    ->  vymazanie položky
+                    ->  spôsob uloženia dát (databáza posgreSQL)    ->  číselník
+                                                                    ->  popis
+                                                                    ->  hodnota (2 desatine miesta) kladná/píjem alebo záporná/vydavok
+                                                                    ->  dátum
+                    ->  urýchlenie vkladania nového zápisu  ->  rýchla voľba preddefinovaných (častých) zápisov     -> vytvorenie, oprava a vymazanie rýchlej voľby
+            GUI     ->  tabuľka s dátami
+                    ->  tlačidla    ->  pridaj
+                                    ->  oprav 
+                                    ->  vymaž
+                                    ->  nastav deň
+                                    ->  filter dát
+                    ->  kalendár - nastavenie filtru pre aktualny deň 
+                    ->  chybové hlásenia
+            analýza ->  filter dát  ->  podľa času , medzi časom
+                                    ->  podľa hodnoty
+                                    ->  podľa popisu
+
+git remote add origin git@github.com:petranjel/Viem-program.git
+git push -u origin main
