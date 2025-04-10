@@ -222,7 +222,7 @@ def field_value_create():
     field_value.grid(column=3, row=2, sticky="n")
 
 
-# tlačidlo pre pridanie noveho riadku do tabulky
+# tlačidlo pre pridanie noveho alebo úprava riadku v tabulke
 def button_ready_create():
     global button_ready
     button_ready = tk.Button(
