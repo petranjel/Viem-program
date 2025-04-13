@@ -273,6 +273,8 @@ def start_pro():
         label_time_set_create()
         sum_label_create()
         quick.load_cbox_values()
+    if first_start == False:
+        calculate_sum()
 
     first_start = False
 
@@ -439,3 +441,17 @@ def set_date_event():
         label_time_set.config(text=f"Nastavený deň je {new_date}")
 
     sd.set_date_ui(on_date_confirmed=update_label_time_set) # Spustenie užívateľského prostredia na nastavenie dátumu s callback funkciou
+
+
+# Vypočíta súčet hodnôt v stĺpci c2 a aktualizuje sum_label.
+def calculate_sum(): 
+    try:
+        total = 0.0
+        for child in tree.get_children():
+            value = tree.item(child, "values")[1]  # Získanie hodnoty zo stĺpca c2
+            total += float(value)
+        sum_label.config(text=f"SPOLU {total:.2f} EUR")
+    except ValueError as e:
+        messagebox.showerror("Chyba", f"Neplatná hodnota v stĺpci: {e}")
+    except Exception as e:
+        messagebox.showerror("Chyba", f"Neočakávaná chyba: {e}")
