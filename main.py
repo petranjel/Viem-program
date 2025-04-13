@@ -27,6 +27,6 @@ for row in fu.selected_rows:  # pripojenie dat z databazy
     state_value = "positive" if row[1] >= 0 else "negative"
     gui.tree.insert("", tk.END, values=row, tags=state_value)
 fu.connect_close()      # zatvorenie spojenia s databazou
-
+print("Ukončenie programu prebehlo úspešne")  # vypis do konzoly
 
 gui.frame_main.mainloop()

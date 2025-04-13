@@ -6,13 +6,15 @@ from tkinter import messagebox
 import quick_choice as quick
 import func as fu
 import datetime
+import set_date as sd # import modulu pre nastavenie datumu
 
 main_color = "#bffcce"
 first_start = True
 add_com = False
 upd_com = False
-today = datetime.date.today()
-today_form = today.strftime("%d.%m.%Y")
+
+today = datetime.date.today() # ziskanie aktualneho datumu
+today_form = today.strftime("%d.%m.%Y") # premenna pre format datumu
 
 
 def on_closing():
@@ -119,6 +121,7 @@ def button_time_create():
         background="#59c919",
         width=8,
         height=3,
+        command=set_date_event,  
     )
     button_time.grid(column=3, row=0, padx=5, pady=5, ipadx=3)
 
@@ -154,7 +157,7 @@ def label_today_create():
     global label_today
     label_today = tk.Label(
         frame_two,
-        text=("Dnes je "),
+        text=("Dnes je " + " " + today_form),
         background=main_color,
         font=(None, 16),
     )
@@ -247,7 +250,7 @@ def button_cancel_create():
     button_cancel.grid(column=5, row=2, sticky="n")
 
 
-# tlaťidlo bez funkcie 
+# tlaťidlo bez funkcie
 def asfd_button_create():
     global asfd_button
     asfd_button = tk.Button(
@@ -304,9 +307,11 @@ def add_command():
 # tlačidlo opraviť
 def update_command():
     global upd_com, row, selected_item
-    selected_item = tree.focus()
-    if selected_item.isidentifier() == True:
-        global add_com
+    try:    
+        selected_item = tree.focus()
+        if not selected_item or not selected_item.isidentifier():
+            raise ValueError("Nie je vybraná žiadna položka na úpravu.")
+        
         destroy_start()
         button_add_c_box_value_create()
         button_repdel_c_box_value_create()
@@ -321,83 +326,116 @@ def update_command():
         row = tree.item(
             selected_item,
         )["values"]
-    else:
-        print("error nic oznacene")
+
+    except ValueError as ve:
+        messagebox.showerror("Chyba", f"Chyba výberu: {ve}")
+    except Exception as e:
+        messagebox.showerror("Chyba", f"Neočakávaná chyba: {e}")
 
 
 # tlačidlo zrušiť
 def cancel():
     global add_com, upd_com
     if add_com == True:
-        button_add_c_box_value.destroy()
-        button_repdel_c_box_value.destroy()
-        field_value.destroy()
-        button_ready.destroy()
-        c_box.destroy()
-        button_cancel.destroy()
-        asfd_button.destroy()
-        start_pro()
+        reset_ui()
         add_com = False
     if upd_com == True:
-        button_add_c_box_value.destroy()
-        button_repdel_c_box_value.destroy()
-        field_value.destroy()
-        button_ready.destroy()
-        c_box.destroy()
-        button_cancel.destroy()
-        start_pro()
+        reset_ui()
         upd_com = False
 
 
 def add_event():
     global add_com, upd_com
-    fu.description = c_box.get()
-    fu.value = field_value.get()
-    # pridanie novej položky
-    if add_com == True:
-        fu.add_row(fu.description, fu.value)
-        row_tag = "positive" if int(fu.value) >= 0 else "negative"
-        tree.insert(
-            "",
-            tk.END,
-            values=(fu.description, fu.value, today_form, fu.row_id),
-            tags=row_tag,
-        )
-        button_add_c_box_value.destroy()
-        button_repdel_c_box_value.destroy()
-        field_value.destroy()
-        button_ready.destroy()
-        c_box.destroy()
-        button_cancel.destroy()
-        asfd_button.destroy()
-        start_pro()
-        add_com = False
-    # oprava existujucej polozky
-    if upd_com == True:
-        fu.row_id = row[3]
-        fu.update(fu.description, fu.value, fu.row_id)
-        row_tag = "positive" if float(fu.value) >= 0 else "negative"
-        tree.item(
-            selected_item,
-            values=(fu.description, fu.value, row[2], fu.row_id),
-            tags=row_tag,
-        )
-        button_add_c_box_value.destroy()
-        button_repdel_c_box_value.destroy()
-        field_value.destroy()
-        button_ready.destroy()
-        c_box.destroy()
-        button_cancel.destroy()
-        start_pro()
-        upd_com = False
+    try:    
+        fu.description = c_box.get()
+        fu.value = field_value.get()
+        if not fu.description or not fu.value:
+            raise ValueError("Popis a hodnota musia byť vyplnené.")
+
+        # pridanie novej položky
+        if add_com == True:
+            fu.add_row(fu.description, fu.value)
+            row_tag = "positive" if int(fu.value) >= 0 else "negative"
+            tree.insert(
+                "",
+                tk.END,
+                values=(fu.description, fu.value, today_form, fu.row_id),
+                tags=row_tag,
+            )
+            reset_ui()
+            add_com = False
+        # oprava existujucej polozky
+        if upd_com == True:
+            fu.row_id = row[3]
+            fu.update(fu.description, fu.value, fu.row_id)
+            row_tag = "positive" if float(fu.value) >= 0 else "negative"
+            tree.item(
+                selected_item,
+                values=(fu.description, fu.value, row[2], fu.row_id),
+                tags=row_tag,
+            )
+            reset_ui()
+            upd_com = False
+    except ValueError as ve:
+        messagebox.showerror("Chyba", f"Chyba vstupu: {ve}")
+    except Exception as e:
+        messagebox.showerror("Chyba", f"Neočakávaná chyba: {e}")
 
 
 # tlačidlo vymazať
 def delete_event():
-    selected_item = tree.focus()
-    if selected_item.isidentifier() == True:
+    try:
+        selected_item = tree.focus()
+        if not selected_item or not selected_item.isidentifier():
+            raise ValueError("Nie je vybraná žiadna položka na vymazanie.")
+
+        # Dialogove okno pre potvrdenie vymazania
+        confirm = messagebox.askyesno(
+            "Potvrdenie vymazania",
+            "Naozaj chcete vymazať vybranú položku?"
+            + "\n"
+            + str(tree.item(selected_item, "values")[0])
+            + "\n"
+            + str(tree.item(selected_item, "values")[1])+ " eur"
+            + "\n" 
+            + str(tree.item(selected_item, "values")[2]),
+        )
+        if not confirm:
+            return  # Zruši ak používateľ nepotvrdí
+
         fu.row_id = tree.item(selected_item, "values")[3]
         fu.delete(fu.row_id)
         tree.delete(selected_item)
-    else:
-        print("error pri delete")
+
+    except ValueError as ve:
+        messagebox.showerror("Chyba", f"Chyba výberu: {ve}")
+    except Exception as e:
+        messagebox.showerror("Chyba", f"Neočakávaná chyba: {e}")
+
+
+# zmazanie tlačidiel
+def reset_ui():
+    """Reset the UI by destroying all dynamically created widgets and restarting the main UI."""
+    widgets = [
+        "button_add_c_box_value",
+        "button_repdel_c_box_value",
+        "field_value",
+        "button_ready",
+        "c_box",
+        "button_cancel",
+        "asfd_button",
+    ]
+    for widget in widgets:
+        try:
+            globals()[widget].destroy()
+        except NameError:
+            pass  # Ignore if the widget does not exist
+    start_pro()
+
+def set_date_event():
+
+    def update_label_time_set(new_date):
+        global label_time_set
+        label_time_set.config(text=f"Nastavený deň je {new_date}")
+
+    sd.set_date_ui(on_date_confirmed=update_label_time_set) # Spustenie užívateľského prostredia na nastavenie dátumu s callback funkciou

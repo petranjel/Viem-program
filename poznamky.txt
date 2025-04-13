@@ -33,4 +33,6 @@ program ->  zápis   ->  oprava položky
                                     ->  podľa popisu
 
 git remote add origin git@github.com:petranjel/Viem-program.git
-git push -u origin main
+git add názov súboru - pridanie stage 1
+git commit -m "popis zmeny" - stage 2
+git push -u origin main  - stage 3 na github
